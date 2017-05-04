@@ -1,7 +1,7 @@
+//ClaseGeneradaParaEstrellas.
 class Estrellas {
   
   Body body;
-  
   float r;
   color col;
   
@@ -13,6 +13,7 @@ class Estrellas {
    
   }
   
+  //EliminarLosCuerposFueraDelEspacio/Coordenadas.
     void killBody() {
     box2d.destroyBody(body);
   }
@@ -26,9 +27,9 @@ class Estrellas {
     return false;
   }
   
+ //MostrarElcuerpo(CarácterísticasDelCuerpo).
     void display() {
     Vec2 pos = box2d.getBodyPixelCoord(body);
-    float a = body.getAngle();
     pushMatrix();
     translate(pos.x, pos.y);
     fill(col);
@@ -40,6 +41,7 @@ class Estrellas {
     popMatrix();
   }
 
+//HacerElCuerpo.
 void makeBody(float x, float y, float r) {
     BodyDef bd = new BodyDef();
     bd.position = box2d.coordPixelsToWorld(x, y);
