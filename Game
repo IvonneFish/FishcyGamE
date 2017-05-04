@@ -1,6 +1,8 @@
+//IAudio.
 import processing.sound.*;
 SoundFile Moon;
 
+//IEstrellas.
 import shiffman.box2d.*;
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.joints.*;
@@ -10,6 +12,7 @@ import org.jbox2d.dynamics.contacts.*;
 Box2DProcessing box2d;
 ArrayList<Estrellas> estrella;
 
+//Declaración de Personajes y Enemigos.
 Personaje Personaje1;
 Personaje Personaje2;
 Personaje Personaje3;
@@ -31,13 +34,12 @@ Ball P4A2;
 Ball P5A1;
 Ball P5A2;
 
-
-int fondo = 0;
+//DeclaraciónDeImágenesdePantalla
 PImage Start0;
 PImage Start1;
 PImage Selection;
 PImage Battle;
-PImage IP1A1;
+PImage IP1A1;//Ataques.
 PImage IP1A2;
 PImage IP2A1;
 PImage IP2A2;
@@ -52,29 +54,28 @@ PImage END2;
 PImage END3;
 PImage END4;
 PImage END5;
-PImage Particula;
-PImage End;
+PImage Particula;//Estrellas
+PFont Letter;//DeclaraciónDeTexto.
+int fondo = 0;
 int turno = 0;
-int spatak1 = 0;
-int spatak2 = 0;
 int a = 100;
 int b = 100;
 int HP = 100;
-PFont Letter;
 int py = 140;
 int velocidad =5;
 int PSel;
 
 
 void setup(){
-  
+//InicializaciónDeBox2D  
 box2d = new Box2DProcessing(this);
 box2d.createWorld();
 estrella = new ArrayList<Estrellas>();
-  
-  
+ 
  background(0);
  size(600,338);
+ 
+ //LlamadoDeElementos.
  Particula = loadImage("Particula.png");
  Start0 = loadImage("Start0.png");
  Start1 = loadImage("Start1.png");
@@ -96,11 +97,10 @@ estrella = new ArrayList<Estrellas>();
  END4 = loadImage("END4.png");
  END5 = loadImage("END5.png");
  Letter = createFont("AnnieUseYourTelescope.ttf",20);
+ 
  Moon = new SoundFile(this,"Obstacles [8-Bit Cover].mp3");
  Moon.play();
  Moon.amp(0.3);
-
-
  
  Personaje1 = new Personaje ("Personaje1",100,20,30,50,0);
  Personaje2 = new Personaje ("Personaje2",100,20,20,50,2);
@@ -123,22 +123,20 @@ estrella = new ArrayList<Estrellas>();
  P4A2 = new Ball (50,50,0,0,0,5,0,250,250);
  P5A1 = new Ball (50,50,255,0,0,5,0,250,250);
  P5A2 = new Ball (50,50,255,255,0,5,0,250,250);
-
- 
  
 }
 
 void draw(){
-  
-  println(turno);
+   println(turno);
   
   switch(fondo){
   case 0:
   
   int x= 320;
   background(Start0);
- frameRate(80);
-
+  frameRate(80);
+  
+  //GeneraciónDeEstrellas
   if (random(1) < 0.1) {
     float sz = random(4, 8);
     estrella.add(new Estrellas(random(width), 20, sz));
@@ -151,12 +149,13 @@ void draw(){
       estrella.remove(i);
     }
   }
-  
+  //ImagenClicparacontinuar
   pushMatrix();
   Start1.resize(0, x);
   image(Start1, 15, 8);
   popMatrix();
-      
+  
+  //ClicParaCambiarDeFondo,
   if (mousePressed == false){
   } else
   {
@@ -164,6 +163,7 @@ void draw(){
   }
   break;
   
+  //SelecciónDePersonajes
   case 1:
   background(Selection);
    frameRate(9);
@@ -199,12 +199,11 @@ void draw(){
   }
   break;
   
+  //Batalla
   case 2:
   background(Battle);
-  
-
-  
-  if (PSel == 1){
+//SiFueSeleccionadoElPersonaje1
+    if (PSel == 1){
       Personaje1.Dibujar();
       Personaje1.MovPersonajes();
       Enemy5.DibujarEnemy();
@@ -227,7 +226,7 @@ void draw(){
       text("  FifhtEkement Atak *press P", 400, 270);
       text("  Energy Atak *press O", 400, 290);
 
-
+//Turnos
 if (Enemy5.HP >= 1 && Personaje1.HP >= 1){
 
   if (turno == 0){
@@ -264,20 +263,14 @@ if (Enemy5.HP >= 1 && Personaje1.HP >= 1){
  }
 }
 
- 
-
-
 else {
-  fondo++;
+  fondo++;//CambioDeFondo
 }
 
 }
-  
-  
- 
-  
+
   //______________________________________________________________________
- 
+//SiFueSeleccionadoElPersonaje2
      if (PSel == 2){
       Personaje2.Dibujar();
       Personaje2.MovPersonajes();
@@ -301,6 +294,7 @@ else {
       text("  WaterAtak *press P", 400, 270);
       text("  Rain Atak *press O", 400, 290);
 
+//Turnos
 if (Enemy3.HP >= 1 && Personaje2.HP >= 1){
 
   if (turno == 0){
@@ -337,12 +331,12 @@ if (Enemy3.HP >= 1 && Personaje2.HP >= 1){
 }
 
 else {
-  fondo++;
+  fondo++;//CambioDeFondo
 }
 
 } 
    //______________________________________________________________________
- 
+//SiFueSeleccionadoElPersonaje3
       if (PSel == 3){
       Personaje3.Dibujar();
       Personaje3.MovPersonajes();
@@ -366,6 +360,7 @@ else {
       text("  Fire Atak *press P", 400, 270);
       text("  Rawr Atak *press O", 400, 290);
 
+//Turnos
  if (Enemy1.HP >= 1 && Personaje3.HP >= 1){
 
   if (turno == 0){
@@ -402,12 +397,12 @@ else {
 }
 
 else {
-  fondo++;
+  fondo++;//CambioDeFondo
 }
 
 }         
    //______________________________________________________________________        
-        
+//SiFueSeleccionadoElPersonaje4     
 if (PSel == 4){
       Personaje4.Dibujar();
       Personaje4.MovPersonajes();
@@ -431,6 +426,7 @@ if (PSel == 4){
       text("  Air Atak *press P", 400, 270);
       text("  Dragon Atak *press O", 400, 290);
 
+//Turnos
  if (Enemy2.HP >= 1 && Personaje4.HP >= 1){
 
   if (turno == 0){
@@ -467,13 +463,12 @@ if (PSel == 4){
 }
 
 else {
-  fondo++;
+  fondo++;//CambioDeFondo
 }
 
 }  
-     //______________________________________________________________________
-  
-  
+     //______________________________________________________________________  
+//SiFueSeleccionadoElPersonaje5
       if (PSel == 5){
       Personaje5.Dibujar();
       Personaje5.MovPersonajes();
@@ -498,6 +493,7 @@ else {
       text("  Rock Smash *press P", 400, 270);
       text("  Terremote *press O", 400, 290);
 
+//Turnos
  if (Enemy4.HP >= 1 && Personaje5.HP >= 1){
 
   if (turno == 0){
@@ -534,7 +530,7 @@ else {
 }
 
 else {
-  fondo++;
+  fondo++;//CambioDeFondo
 }
 
 }       
@@ -543,7 +539,7 @@ else {
    break;
    case 3:
    
-   
+   //FinDeBatalla
    if (Enemy1.HP <= 0){
 
    background(0);
@@ -562,9 +558,6 @@ else {
    text("You re dead",150,100);
    
 }
-
-
-
    
    if (Enemy2.HP <= 0){
 
@@ -608,14 +601,16 @@ if (Enemy5.HP <= 0){
     fondo ++;
   }
 break;
-
-
-
   }
 }
 
+//Regreso/Reinicio.
 void mouseReleased() {
   if (fondo == 4) {
     fondo = 0;
+    turno = 0;
+    a = 100;
+    b = 100;
+    HP = 100;
   }
 }
