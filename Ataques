@@ -1,0 +1,87 @@
+class Ball{
+  int ancho;
+  int altura;
+  int r,g,b; 
+  int velocidad; 
+  float direccion; 
+  float px, py;
+
+  Ball(int ancho_, int altura_, int r_, int g_, int b_, int velocidad_, float direccion_, float px_, float py_)
+  {
+    ancho = ancho_; 
+    altura = altura_;
+    r = r_;
+    g = g_;
+    b = b_;
+    velocidad = velocidad_;
+    direccion = direccion_;
+    px = px_;
+    py = py_; 
+  }
+ 
+ void mostrarIP1A1(){ 
+   noStroke();
+   ellipseMode(CENTER); 
+   fill(r,g,b);
+   image(IP1A1,0,0);
+  }
+   void mostrarIP1A2(){ 
+   noStroke();
+   ellipseMode(CENTER); 
+   fill(r,g,b);
+   image(IP1A2,0,0);
+  }
+  void mostrarIP2A1(){ 
+   noStroke();
+   ellipseMode(CENTER); 
+   fill(r,g,b);
+   image(IP2A1,0,0);
+  }
+ void mostrarIP2A2(){ 
+   noStroke();
+   ellipseMode(CENTER); 
+   fill(r,g,b);
+   image(IP2A2,0,0);
+  }
+ void mostrarIP3A1(){ 
+   noStroke();
+   ellipseMode(CENTER); 
+   fill(r,g,b);
+   image(IP3A1,0,0);
+  }
+ void mostrarIP3A2(){ 
+   noStroke();
+   ellipseMode(CENTER); 
+   fill(r,g,b);
+   image(IP3A2,0,0);
+  }
+ void mostrarIP4A1(){ 
+   noStroke();
+   ellipseMode(CENTER); 
+   fill(r,g,b);
+   image(IP4A1,0,0);
+  }
+ void mostrarIP4A2(){ 
+   noStroke();
+   ellipseMode(CENTER); 
+   fill(r,g,b);
+   image(IP4A2,0,0);
+  }
+ void mostrarIP5A1(){ 
+   noStroke();
+   ellipseMode(CENTER); 
+   fill(r,g,b);
+   image(IP5A1,0,0);
+  }
+ void mostrarIP5A2(){ 
+   noStroke();
+   ellipseMode(CENTER); 
+   fill(r,g,b);
+   image(IP5A2,0,0);
+  }
+
+
+   
+   
+
+}
