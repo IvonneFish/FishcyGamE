@@ -1,3 +1,4 @@
+//ClaseGeneradaParaPersonajes.
 class Personaje{
   String name;
   int HP;
@@ -17,9 +18,8 @@ Personaje(String name_, int HP_, int ataque1_, int ataque2_, int ataquesp_, int 
   dibujo = dibujo_;
 }
 
-
+//MovimientoDePersonajesEnBatalla.
 void MovPersonajes(){
-  
 
     if (py == 140){
     py = 145;
@@ -32,9 +32,7 @@ void MovPersonajes(){
 
 }
   
-
-
-
+//MostrarLosPersonajesEnPantalla. 
 void Dibujar(){
   switch(dibujo){
   case 0:
