@@ -1,0 +1,621 @@
+import processing.sound.*;
+SoundFile Moon;
+
+import shiffman.box2d.*;
+import org.jbox2d.common.*;
+import org.jbox2d.dynamics.joints.*;
+import org.jbox2d.common.*;
+import org.jbox2d.dynamics.*;
+import org.jbox2d.dynamics.contacts.*;
+Box2DProcessing box2d;
+ArrayList<Estrellas> estrella;
+
+Personaje Personaje1;
+Personaje Personaje2;
+Personaje Personaje3;
+Personaje Personaje4;
+Personaje Personaje5;
+Personaje Enemy1;
+Personaje Enemy2;
+Personaje Enemy3;
+Personaje Enemy4;
+Personaje Enemy5;
+Ball P1A1;
+Ball P1A2;
+Ball P2A1;
+Ball P2A2;
+Ball P3A1;
+Ball P3A2;
+Ball P4A1;
+Ball P4A2;
+Ball P5A1;
+Ball P5A2;
+
+
+int fondo = 0;
+PImage Start0;
+PImage Start1;
+PImage Selection;
+PImage Battle;
+PImage IP1A1;
+PImage IP1A2;
+PImage IP2A1;
+PImage IP2A2;
+PImage IP3A1;
+PImage IP3A2;
+PImage IP4A1;
+PImage IP4A2;
+PImage IP5A1;
+PImage IP5A2;
+PImage END1;
+PImage END2;
+PImage END3;
+PImage END4;
+PImage END5;
+PImage Particula;
+PImage End;
+int turno = 0;
+int spatak1 = 0;
+int spatak2 = 0;
+int a = 100;
+int b = 100;
+int HP = 100;
+PFont Letter;
+int py = 140;
+int velocidad =5;
+int PSel;
+
+
+void setup(){
+  
+box2d = new Box2DProcessing(this);
+box2d.createWorld();
+estrella = new ArrayList<Estrellas>();
+  
+  
+ background(0);
+ size(600,338);
+ Particula = loadImage("Particula.png");
+ Start0 = loadImage("Start0.png");
+ Start1 = loadImage("Start1.png");
+ Selection = loadImage("Selection.png");
+ Battle = loadImage("Battle.png");
+ IP1A1 = loadImage("P1A1.png");
+ IP1A2 = loadImage("P1A2.png");
+ IP2A1 = loadImage("P2A1.png");
+ IP2A2 = loadImage("P2A2.png");
+ IP3A1 = loadImage("P3A1.png");
+ IP3A2 = loadImage("P3A2.png");
+ IP4A1 = loadImage("P4A1.png");
+ IP4A2 = loadImage("P4A2.png");
+ IP5A1 = loadImage("P5A1.png");
+ IP5A2 = loadImage("P5A2.png");
+ END1 = loadImage("END1.png");
+ END2 = loadImage("END2.png");
+ END3 = loadImage("END3.png");
+ END4 = loadImage("END4.png");
+ END5 = loadImage("END5.png");
+ Letter = createFont("AnnieUseYourTelescope.ttf",20);
+ Moon = new SoundFile(this,"Obstacles [8-Bit Cover].mp3");
+ Moon.play();
+ Moon.amp(0.3);
+
+
+ 
+ Personaje1 = new Personaje ("Personaje1",100,20,30,50,0);
+ Personaje2 = new Personaje ("Personaje2",100,20,20,50,2);
+ Personaje3 = new Personaje ("Personaje3",100,20,30,50,3);
+ Personaje4 = new Personaje ("Personaje4",100,20,30,50,4);
+ Personaje5 = new Personaje ("Personaje4",100,20,30,50,5);
+ Enemy1 = new Personaje ("Enemy1",100,20,30,50,0);
+ Enemy2 = new Personaje ("Enemy2",100,20,20,50,2);
+ Enemy3 = new Personaje ("Enemy3",100,20,20,50,3);
+ Enemy4 = new Personaje ("Enemy4",100,20,20,50,4);
+ Enemy5 = new Personaje ("Enemy5",100,20,20,50,5);
+ 
+ P1A1 = new Ball (50,50,255,0,0,5,0,250,250);
+ P1A2 = new Ball (50,50,255,255,0,5,0,250,250);
+ P2A1 = new Ball (50,50,255,255,255,5,0,250,250);
+ P2A2 = new Ball (50,50,0,0,0,5,0,250,250);
+ P3A1 = new Ball (50,50,255,0,0,5,0,250,250);
+ P3A2 = new Ball (50,50,255,255,0,5,0,250,250);
+ P4A1 = new Ball (50,50,255,255,255,5,0,250,250);
+ P4A2 = new Ball (50,50,0,0,0,5,0,250,250);
+ P5A1 = new Ball (50,50,255,0,0,5,0,250,250);
+ P5A2 = new Ball (50,50,255,255,0,5,0,250,250);
+
+ 
+ 
+}
+
+void draw(){
+  
+  println(turno);
+  
+  switch(fondo){
+  case 0:
+  
+  int x= 320;
+  background(Start0);
+ frameRate(80);
+
+  if (random(1) < 0.1) {
+    float sz = random(4, 8);
+    estrella.add(new Estrellas(random(width), 20, sz));
+  }
+    box2d.step();
+     for (int i = estrella.size()-1; i >= 0; i--) {
+    Estrellas p = estrella.get(i);
+    p.display();
+    if (p.done()) {
+      estrella.remove(i);
+    }
+  }
+  
+  pushMatrix();
+  Start1.resize(0, x);
+  image(Start1, 15, 8);
+  popMatrix();
+      
+  if (mousePressed == false){
+  } else
+  {
+    fondo +=1;
+  }
+  break;
+  
+  case 1:
+  background(Selection);
+   frameRate(9);
+  if(keyPressed){
+    if(key == 'a' || key == 'A'){
+      PSel = 1;
+      fondo +=1;
+    }
+  }
+  if(keyPressed){
+    if(key == 'b' || key == 'B'){
+      PSel = 2;
+      fondo +=1;
+    }
+  }
+  if(keyPressed){
+    if(key == 'c' || key == 'C'){
+      PSel = 3;
+      fondo +=1;
+    }
+  }
+    if(keyPressed){
+    if(key == 'd' || key == 'D'){
+      PSel = 4;
+      fondo +=1;
+    }
+  }
+    if(keyPressed){
+    if(key == 'e' || key == 'E'){
+      PSel = 5;
+      fondo +=1;
+    }
+  }
+  break;
+  
+  case 2:
+  background(Battle);
+  
+
+  
+  if (PSel == 1){
+      Personaje1.Dibujar();
+      Personaje1.MovPersonajes();
+      Enemy5.DibujarEnemy();
+      fill(152,157,176);
+      rect(98,68,104,14);
+      rect(398,68,104,14);
+      fill(185,210,139);    
+      rect(400,70,a,10); 
+      rect(100,70,b,10);
+      ellipse(60, 268,5,5);
+      ellipse(60, 288,5,5);
+      ellipse(405, 268,5,5);
+      ellipse(405, 288,5,5);
+      textFont(Letter);
+      textSize(15); 
+      text("HP", 55, 80);
+      text("HP", 355, 80);
+      text("  Fire Atak *press Q", 55, 270);
+      text("  Rawr Atak *press W", 55, 290);
+      text("  FifhtEkement Atak *press P", 400, 270);
+      text("  Energy Atak *press O", 400, 290);
+
+
+if (Enemy5.HP >= 1 && Personaje1.HP >= 1){
+
+  if (turno == 0){
+   if(keyPressed && key == 'q'){ 
+     P1A1.mostrarIP1A1();
+     Enemy5.HP = Enemy5.HP - Personaje1.ataque1;   
+     println(Enemy5.HP);
+     a = Enemy5.HP;
+     turno = 1;
+   }
+   
+   if(keyPressed && key == 'w'){  
+   P1A2.mostrarIP1A2();
+   Enemy5.HP = Enemy5.HP - Personaje1.ataque2;   
+     println(Enemy5.HP);
+     a = Enemy5.HP;
+     turno = 1;   
+   }
+ }
+ 
+ else {
+   if(keyPressed && key == 'p'){
+     P5A1.mostrarIP5A1();
+     Personaje1.HP = Personaje1.HP - Enemy5.ataque1;
+     b = Personaje1.HP;
+       turno = 0;
+   }
+   if(keyPressed && key == 'o'){     
+   P5A2.mostrarIP5A2();
+   Personaje1.HP = Personaje1.HP - Enemy5.ataque2;   
+     b = Personaje1.HP;
+     turno = 0;   
+   }
+ }
+}
+
+ 
+
+
+else {
+  fondo++;
+}
+
+}
+  
+  
+ 
+  
+  //______________________________________________________________________
+ 
+     if (PSel == 2){
+      Personaje2.Dibujar();
+      Personaje2.MovPersonajes();
+      Enemy3.DibujarEnemy();
+      fill(152,157,176);
+      rect(98,68,104,14);
+      rect(398,68,104,14);
+      fill(185,210,139);    
+      rect(400,70,a,10); 
+      rect(100,70,b,10);
+      ellipse(60, 268,5,5);
+      ellipse(60, 288,5,5);
+      ellipse(405, 268,5,5);
+      ellipse(405, 288,5,5);
+      textFont(Letter);
+      textSize(15); 
+      text("HP", 55, 80);
+      text("HP", 355, 80);
+      text("  Air Atak *press Q", 55, 270);
+      text("  Dragon Atak *press W", 55, 290);
+      text("  WaterAtak *press P", 400, 270);
+      text("  Rain Atak *press O", 400, 290);
+
+if (Enemy3.HP >= 1 && Personaje2.HP >= 1){
+
+  if (turno == 0){
+   if(keyPressed && key == 'q'){     
+     P2A1.mostrarIP2A1();
+     Enemy3.HP = Enemy3.HP - Personaje2.ataque1;   
+     println(Enemy3.HP);
+     a = Enemy3.HP;
+     turno = 1;
+   }
+   if(keyPressed && key == 'w'){    
+   P2A2.mostrarIP2A2();
+   Enemy3.HP = Enemy3.HP - Personaje2.ataque2;   
+     println(Enemy3.HP);
+     a = Enemy3.HP;
+     turno = 1;   
+   }
+ }
+ 
+ else {
+   if(keyPressed && key == 'p'){
+     P3A1.mostrarIP3A1();
+     Personaje2.HP = Personaje2.HP - Enemy3.ataque1;
+     b = Personaje2.HP;
+       turno = 0;
+   }
+   if(keyPressed && key == 'o'){
+     P3A2.mostrarIP3A1();
+     Personaje2.HP = Personaje2.HP - Enemy3.ataque2;   
+     b = Personaje2.HP;
+     turno = 0;   
+   }
+ }
+}
+
+else {
+  fondo++;
+}
+
+} 
+   //______________________________________________________________________
+ 
+      if (PSel == 3){
+      Personaje3.Dibujar();
+      Personaje3.MovPersonajes();
+      Enemy1.DibujarEnemy();
+      fill(152,157,176);
+      rect(98,68,104,14);
+      rect(398,68,104,14);
+      fill(185,210,139);    
+      rect(400,70,a,10); 
+      rect(100,70,b,10);
+      ellipse(60, 268,5,5);
+      ellipse(60, 288,5,5);
+      ellipse(405, 268,5,5);
+      ellipse(405, 288,5,5);
+      textFont(Letter);
+      textSize(15); 
+      text("HP", 55, 80);
+      text("HP", 355, 80);
+      text("  WaterAtak *press Q", 55, 270);
+      text("  Rain Atak *press W", 55, 290);
+      text("  Fire Atak *press P", 400, 270);
+      text("  Rawr Atak *press O", 400, 290);
+
+ if (Enemy1.HP >= 1 && Personaje3.HP >= 1){
+
+  if (turno == 0){
+   if(keyPressed && key == 'q'){ 
+     P3A1.mostrarIP3A1();
+     Enemy1.HP = Enemy1.HP - Personaje3.ataque1;   
+     println(Enemy1.HP);
+     a = Enemy1.HP;
+     turno = 1;
+   }
+   if(keyPressed && key == 'w'){ 
+   P3A2.mostrarIP3A2();
+   Enemy1.HP = Enemy1.HP - Personaje3.ataque2;   
+     println(Enemy1.HP);
+     a = Enemy1.HP;
+     turno = 1;   
+   }
+ }
+ 
+ else {
+   if(keyPressed && key == 'p'){
+     P1A1.mostrarIP1A1();
+     Personaje3.HP = Personaje3.HP - Enemy1.ataque1;
+     b = Personaje3.HP;
+       turno = 0;
+   }
+   if(keyPressed && key == 'o'){ 
+     P1A2.mostrarIP1A2();
+   Personaje3.HP = Personaje3.HP - Enemy1.ataque2;   
+     b = Personaje3.HP;
+     turno = 0;   
+   }
+ }
+}
+
+else {
+  fondo++;
+}
+
+}         
+   //______________________________________________________________________        
+        
+if (PSel == 4){
+      Personaje4.Dibujar();
+      Personaje4.MovPersonajes();
+      Enemy2.DibujarEnemy();
+      fill(152,157,176);
+      rect(98,68,104,14);
+      rect(398,68,104,14);
+      fill(185,210,139);    
+      rect(400,70,a,10); 
+      rect(100,70,b,10);
+      ellipse(60, 268,5,5);
+      ellipse(60, 288,5,5);
+      ellipse(405, 268,5,5);
+      ellipse(405, 288,5,5);
+      textFont(Letter);
+      textSize(15); 
+      text("HP", 55, 80);
+      text("HP", 355, 80);
+      text("  Rock Smash *press Q", 55, 270);
+      text("  Terremote *press W", 55, 290);
+      text("  Air Atak *press P", 400, 270);
+      text("  Dragon Atak *press O", 400, 290);
+
+ if (Enemy2.HP >= 1 && Personaje4.HP >= 1){
+
+  if (turno == 0){
+   if(keyPressed && key == 'q'){   
+     P4A1.mostrarIP4A1();
+     Enemy2.HP = Enemy2.HP - Personaje4.ataque1;   
+     println(Enemy2.HP);
+     a = Enemy2.HP;
+     turno = 1;
+   }
+   if(keyPressed && key == 'w'){  
+     P4A2.mostrarIP4A2();
+   Enemy2.HP = Enemy2.HP - Personaje4.ataque2;   
+     println(Enemy2.HP);
+     a = Enemy2.HP;
+     turno = 1;   
+   }
+ }
+ 
+ else {
+   if(keyPressed && key == 'p'){
+     P2A1.mostrarIP2A1();
+     Personaje4.HP = Personaje4.HP - Enemy2.ataque1;
+     b = Personaje4.HP;
+       turno = 0;
+   }
+   if(keyPressed && key == 'o'){   
+   P2A2.mostrarIP2A1();
+   Personaje4.HP = Personaje4.HP - Enemy2.ataque2;   
+     b = Personaje4.HP;
+     turno = 0;   
+   }
+ }
+}
+
+else {
+  fondo++;
+}
+
+}  
+     //______________________________________________________________________
+  
+  
+      if (PSel == 5){
+      Personaje5.Dibujar();
+      Personaje5.MovPersonajes();
+      Enemy4.DibujarEnemy();
+
+       fill(152,157,176);
+      rect(98,68,104,14);
+      rect(398,68,104,14);
+      fill(185,210,139);    
+      rect(400,70,a,10); 
+      rect(100,70,b,10);
+      ellipse(60, 268,5,5);
+      ellipse(60, 288,5,5);
+      ellipse(405, 268,5,5);
+      ellipse(405, 288,5,5);
+      textFont(Letter);
+      textSize(15); 
+      text("HP", 55, 80);
+      text("HP", 355, 80);
+      text("  FifthElement Atak *press Q", 55, 270);
+      text("  Energy Atak *press W", 55, 290);
+      text("  Rock Smash *press P", 400, 270);
+      text("  Terremote *press O", 400, 290);
+
+ if (Enemy4.HP >= 1 && Personaje5.HP >= 1){
+
+  if (turno == 0){
+   if(keyPressed && key == 'q'){  
+     P5A1.mostrarIP5A1();
+     Enemy4.HP = Enemy4.HP - Personaje5.ataque1;   
+     println(Enemy4.HP);
+     a = Enemy4.HP;
+     turno = 1;
+   }
+   if(keyPressed && key == 'w'){
+     P5A2.mostrarIP5A2();
+   Enemy4.HP = Enemy4.HP - Personaje5.ataque2;   
+     println(Enemy4.HP);
+     a = Enemy4.HP;
+     turno = 1;   
+   }
+ }
+ 
+ else {
+   if(keyPressed && key == 'p'){
+     P4A1.mostrarIP4A1();
+     Personaje5.HP = Personaje5.HP - Enemy4.ataque1;
+     b = Personaje5.HP;
+       turno = 0;
+   }
+   if(keyPressed && key == 'o'){     
+    P4A2.mostrarIP4A2();
+   Personaje5.HP = Personaje5.HP - Enemy4.ataque2;   
+     b = Personaje5.HP;
+     turno = 0;   
+   }
+ }
+}
+
+else {
+  fondo++;
+}
+
+}       
+         
+    //______________________________________________________________________
+   break;
+   case 3:
+   
+   
+   if (Enemy1.HP <= 0){
+
+   background(0);
+   image(END3,0,0);
+   textFont(Letter);
+   textSize(20); 
+   text(" You win",160,100);
+   
+}
+   if (Personaje3.HP <= 0){
+
+   background(0);
+   image(END1,0,0);
+   textFont(Letter);
+   textSize(20); 
+   text("You re dead",150,100);
+   
+}
+
+
+
+   
+   if (Enemy2.HP <= 0){
+
+   background(0);
+   textFont(Letter);
+   image(END4,0,0);
+   textSize(20); 
+   text(" You win",160,100);
+}
+   
+   if (Enemy3.HP <= 0){
+
+   background(0);
+   image(END2,0,0);
+   textFont(Letter);
+   textSize(20); 
+   text(" You win",160,100);
+}
+   
+   if (Enemy4.HP <= 0){
+
+   background(0);
+   image(END5,0,0);
+   textFont(Letter);
+   textSize(20); 
+   text(" You win",160,100);
+}
+   
+if (Enemy5.HP <= 0){
+
+   background(0);
+   image(END1,0,0);
+   textFont(Letter);
+   textSize(20); 
+   text(" You win",160,100);
+}
+
+  if (mousePressed == false){
+  } else
+  {
+    fondo ++;
+  }
+break;
+
+
+
+  }
+}
+
+void mouseReleased() {
+  if (fondo == 4) {
+    fondo = 0;
+  }
+}
