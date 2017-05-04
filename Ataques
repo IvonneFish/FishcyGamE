@@ -1,3 +1,4 @@
+c//ClaseGeneradaParaAtaques.
 class Ball{
   int ancho;
   int altura;
@@ -5,7 +6,7 @@ class Ball{
   int velocidad; 
   float direccion; 
   float px, py;
-
+  
   Ball(int ancho_, int altura_, int r_, int g_, int b_, int velocidad_, float direccion_, float px_, float py_)
   {
     ancho = ancho_; 
@@ -19,6 +20,7 @@ class Ball{
     py = py_; 
   }
  
+ //MostrarLosEfectosParaLosAtaques.
  void mostrarIP1A1(){ 
    noStroke();
    ellipseMode(CENTER); 
@@ -80,8 +82,5 @@ class Ball{
    image(IP5A2,0,0);
   }
 
-
-   
-   
 
 }
